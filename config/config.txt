@@ -1,0 +1,4 @@
+git config --global user.name "qzkuan"
+git config --global user.email "qqaxxn@163.com"
+
+ssh-keygen  -t rsa -C "qzkuan@gmail.com" (双引号中的为github的注册邮箱）
