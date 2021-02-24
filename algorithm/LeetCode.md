@@ -298,7 +298,7 @@ class Solution {
 
 如下图所示，我们将矩阵逆时针旋转 45° ，并将其转化为图形式，发现其类似于 二叉搜索树 ，即对于每个元素，其左分支元素更小、右分支元素更大。因此，通过从 “根节点” 开始搜索，遇到比 `target` 大的元素就向左，反之向右，即可找到目标值 `target` 。
 
-![Picture1.png](C:\Lenovo\qzkuan-Thinkpad\git\learning\algorithm\LeetCode.assets\6584ea93812d27112043d203ea90e4b0950117d45e0452d0c630fcb247fbc4af-Picture1.png)
+![Picture1.png](./LeetCode.assets/6584ea93812d27112043d203ea90e4b0950117d45e0452d0c630fcb247fbc4af-Picture1.png)
 
 “根节点” 对应的是矩阵的 “左下角” 和 “右上角” 元素，本文称之为 标志数 ，以` matrix` 中的 左下角元素 为标志数 `flag` ，则有:
 
