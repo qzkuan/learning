@@ -1,49 +1,430 @@
 
 
+## 命令行
+
+### 查看类
+
+#### 列出服务器上的所有数据库
+
+db2 list db directory
+#### 列出所有激活的数据库:
+
+db2 list active databases
+
+
+
+### 查看表空间
+
+```sql
+db2 list tablespaces show detail
+```
+
+**当前数据库的表空间**<br/>
+
+ 表空间标识                        = 0<br/><br/>
+ 名称                       = SYSCATSPACE<br/>
+ 类型                                       = 数据库管理空间<br/>
+ 内容                                = 所有持久数据。常规表空间。<br/>
+ 状态                   = 0x0000<br/>
+   详细解释：<br/>
+     正常<br/>
+ 总计页数                            = 8192<br/>
+ 可用页数                            = 8188<br/>
+ 已用页数                            = 7492<br/>
+ 可用页数                            = 696<br/>
+ 高水位标记（页）                    = 7492<br/>
+ 页大小（以字节计）                  = 8192<br/>
+ 扩展数据块大小（页）                = 4<br/>
+ 预取大小（页）                      = 4<br/>
+ 容器数                                  = 1<br/>
+<br/>
+<br/>
+ 表空间标识                        = 1<br/>
+ 名称                       = TEMPSPACE1<br/>
+ 类型                                       = 系统管理空间<br/>
+ 内容                                = 系统临时数据<br/>
+ 状态                   = 0x0000<br/>
+   详细解释：<br/>
+     正常<br/>
+ 总计页数                            = 1<br/>
+ 可用页数                            = 1<br/>
+ 已用页数                            = 1<br/>
+ 可用页数                            = 不适用<br/>
+ 高水位标记（页）                    = 不适用<br/>
+ 页大小（以字节计）                  = 8192<br/>
+ 扩展数据块大小（页）                = 32<br/>
+ 预取大小（页）                      = 32<br/>
+ 容器数                                  = 1<br/>
+<br/>
+<br/>
+ 表空间标识                        = 2<br/>
+ 名称                       = USERSPACE1<br/>
+ 类型                                       = 数据库管理空间<br/>
+ 内容                                = 所有持久数据。大型表空间。<br/>
+ 状态                   = 0x0000<br/>
+   详细解释：<br/>
+     正常<br/>
+ 总计页数                            = 4096<br/>
+ 可用页数                            = 4064<br/>
+ 已用页数                            = 1952<br/>
+ 可用页数                            = 2112<br/>
+ 高水位标记（页）                    = 1952<br/>
+ 页大小（以字节计）                  = 8192<br/>
+ 扩展数据块大小（页）                = 32<br/>
+ 预取大小（页）                      = 32<br/>
+ 容器数                                  = 1<br/>
+ 最小恢复时间                            = 2010-09-14-12.33.17.000000<br/>
+<br/>
+<br/>
+ 表空间标识                        = 3<br/>
+ 名称                       = IBMDB2SAMPLEREL<br/>
+ 类型                                       = 数据库管理空间<br/>
+ 内容                                = 所有持久数据。大型表空间。<br/>
+ 状态                   = 0x0000<br/>
+   详细解释：<br/>
+     正常<br/>
+ 总计页数                            = 4096<br/>
+ 可用页数                            = 4064<br/>
+ 已用页数                            = 736<br/>
+ 可用页数                            = 3328<br/>
+ 高水位标记（页）                    = 736<br/>
+ 页大小（以字节计）                  = 8192<br/>
+ 扩展数据块大小（页）                = 32<br/>
+ 预取大小（页）                      = 32<br/>
+ 容器数                                  = 1<br/>
+<br/>
+<br/>
+ 表空间标识                        = 4<br/>
+ 名称                       = SYSTOOLSPACE<br/>
+ 类型                                       = 数据库管理空间<br/>
+ 内容                                = 所有持久数据。大型表空间。<br/>
+ 状态                   = 0x0000<br/>
+   详细解释：<br/>
+     正常<br/>
+ 总计页数                            = 4096<br/>
+ 可用页数                            = 4092<br/>
+ 已用页数                            = 116<br/>
+ 可用页数                            = 3976<br/>
+ 高水位标记（页）                    = 116<br/>
+ 页大小（以字节计）                  = 8192<br/>
+ 扩展数据块大小（页）                = 4<br/>
+ 预取大小（页）                      = 4<br/>
+ 容器数                                  = 1<br/>
+<br/>
+<br/>
+ 表空间标识                        = 5<br/>
+ 名称                       = SYSTOOLSTMPSPACE<br/>
+ 类型                                       = 系统管理空间<br/>
+ 内容                                = 用户临时数据<br/>
+ 状态                   = 0x0000<br/>
+   详细解释：<br/>
+     正常<br/>
+ 总计页数                            = 1<br/>
+ 可用页数                            = 1<br/>
+ 已用页数                            = 1<br/>
+ 可用页数                            = 不适用<br/>
+ 高水位标记（页）                    = 不适用<br/>
+ 页大小（以字节计）                  = 8192<br/>
+ 扩展数据块大小（页）                = 4<br/>
+ 预取大小（页）                      = 4<br/>
+ 容器数                                  = 1
+
+### 备份和恢复数据库
+
+```
+db2 force applications all
+db2 backup db ldapdb2 to directory_or_device
+db2 restore db ldapdb2 from directory_or_device replace existing
+```
+
+```
+备份DB2数据库的方法如下：
+
+在db2inst1用户下操作.
+
+在你要保存数据的当前目录执行以下命令:
+
+$ db2stop force （停止数据库）
+
+$ db2start （启动数据库）
+
+*可不停止数据库，直接执行以下命令：
+
+$ db2 connect to 数据库名 user 用户名 using 密码 （连接数据库）
+
+$ db2 backup db 数据库名
+
+系统会自动备份生成一个时间戳的数据备份文件,
+
+如：xxxx.0.db2inst1.NODE0000.CATN0000.20070814031212.001
+
+恢复数据库
+
+在你备份出数据的当前目录执行以下命令:
+
+$ db2 restore db 数据库名 taken at 20070814031212（直接取数据备份生成的时间戳即可
+```
+
+
+
+
+
+
+
+## 优化
+### db2expln 
+命令行下的解释工具
+```
+# 分析程序包
+  db2expln -d 数据库名 -i -g -c 模式名-p程序包 -s 0 -t
+  db2expln -d 数据库名 -i -g -c 模式名-p程序包 -s 0 -o文件名
+# 分析sql 语句
+   db2expln -d 数据库名 -i -g -q sql语句 -t
+   db2expln -d 数据库名 -i -g -q sql语句 -o 文件名
+```
+```
+# eg
+db2expln -d bidbdw -q "select * from test" -g -t
+-d指定数据库名
+-q是一个SQL语句，也可以用-f指定某个保存了SQL的文件
+-u可以指定用户名和口令
+-t表示输出到终端
+-o可以输出到文件
+```
+
+### db2advis
+> db2advis是DB2提供的另外一种非常有用的命令。通过该命令DB2可以根据优化器的配置以及机器性能给出提高查询性能的建议。这种建议主要集中于如何创建索引，这些索引可以降低多少查询代价，需要创建哪些表或者 Materialized Query Table(MQT) 等
+[参考地址](https://www.ibm.com/support/knowledgecenter/en/SSEPGG_10.5.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0002452.html)
+
+```
+db2advis -d <db_name> -n schema-name -a <user>/<password> -i <sql.file> -o <output> 
+Example: db2advis -d test_db -n schema-name -a user/password 
+ -i D:\temp\sql_2.txt > D:\temp\sql_2_result_db2advis.txt 
+Query: 
+    sql_2.txt
+Results: 
+    sql_2_result_db2advis.txt
+```
+通过 `-i` 指定的SQL文件可以包含多个查询，但是查询必须以分号`;`分隔。<br>
+这与db2expln命令不同，db2expln可以通过-z参数指定多个查询之间的分隔符。用户可以把某一个 workload 中所使用的所有查询写入 SQL 文件中，并在每个查询之前使用”--#SET FREQUENCY <num>”为其指定在这个workload中的执行频率。db2advis会根据每个查询在这个 workload 的频率指数进行权衡来给出索引的创建建议，从而达到整个workload的性能最优。
+
+
+
+### 执行计划
+
+```sh
+# 列出服务器上的所有数据库:
+db2 list db directory
+# 列出所有激活的数据库:
+db2 list active databases
+
+# 连接数据库
+db2 connect to <db>
+# 第一次执行需要先建立执行计划表
+db2 -tvf $HOME/sqllib/misc/EXPLAIN.DDL
+# 设置成解释模式，并不真正执行下面的sql语句
+db2 set current explain mode explain
+# 执行要分析的sql或者sql文件（此处好像只会记录最后一条）
+db2 "<sql>"
+or
+db2 -tvf sql.sql
+# 取消解释模式
+db2 set current explain mode no
+# 执行计划输出到文件explain.out
+db2exfmt -d <db> -g TIC -w -l -s % -n % -o explain.out
+```
+
+
+
+
+
+## DB2常用命令
+
+### 一、基础篇
+```
+1、db2 connect to <数据库名>    --连接到本地数据库名
+       db2 connect to <数据库名> user <用户名> using <密码> --连接到远端数据库
+
+2、 db2 force application all      --强迫所有应用断开数据库连接
+   
+3、db2 backup db db2name<数据库名称>  --备份整个数据库数据
+       db2 restore db <db2name>                     --还原数据库
+
+4、db2 list application --查看所有连接（需要连接到具体数据库才能查看）
+
+5、db2start    --启动数据库
+      db2stop --停止数据库
+
+6、create database <数据库名> using codeset utf-8 territory CN    --创建数据库使用utf-8编码
+
+7、db2 catalog 命令
+
+db2 catalog tcpip node <接点名称> remote <远程数据库地址> server <端口号>  --把远程数据库映射到本地接点一般为50000
+
+db2 catalog db <远程数据库名称> as <接点名称>  at node PUB11                       --远程数据库名称到本地接点
+
+db2 CONNECT TO <接点名称> user <用户名> using <密码>                               --连接本地接点访问远程数据库
+
+8、数据库导出
+
+db2look -d <数据库名> -u <用户> -e -o <脚本名称>.sql        --导出数据库的表结构，其中用户空间一般为db2admin/db2inst1
+
+db2look -d <数据库名> -u <用户> -t <表1> <表2>  -e -o <脚本名称>.sql   --导出数据库中表1和表2的表结构
+
+db2move <数据库名> export              --导出数据库数据
+
+db2move <数据库名> export -tn <表1>,<表2>       --导出数据库中表和表数据
+
+9、数据库导入
+
+db2 -tvf  <脚本名称>.sql       --把上述导出的表结构导入到数据库表结构
+
+db2move <数据库名> load -lo replace   --把上述“db2move <数据库名> export “导出的数据导入到数据库中并把相同的数据替换掉 
+
+在实际使用过程中，如果用到db2自增主键，需要使用by default， 而不是always，功能是一样的，但这样在数据移植时候会很方便!
+
+10、db2 connect reset 或 db2 terminate    --断开与数据库的连接
+
+11、db2set db2codepage=1208        --修改页编码为1208
+
+12、db2 describe table <表名>       --查看表结构
+
+13、db2 list tables                            --查看数据库中所有表结构
+        list tables for system                  --列出所有系统表
+
+14、db2 list tablespaces                  --列出表空间
+```
+
+### 二、高级篇
+
+```
+15、fetch first 10 rows  only   --列出表中前10条数据
+例如：select * from <表名> fetch first 10 rows only
+
+16、coalesce(字段名，转换后的值)       --对是null的字段进行值转换
+
+例如：select coalesce(id,1)  from <表名>    --对表中id如果为null转换成1
+
+17、dayofweek(日期)     --计算出日期中是周几（1是周日，2是周一.......7是周六）
+       dayofweek_iso    --计算出日期中是周几(1是周一.......7是周日)
+      
+ 例如：dayofweek(date(2008-01-16))   --它会返回是4，代表星期三
+             dayofweek_iso(date(2008-01-16))   --它会返回是3，代表星期三
+
+18、dayofyear(日期)   --一年中的第几天，范围在1-366范围之内
+
+注意：参数中日期的格式是YYYY-MM-DD的形式，如果不是需要进行转换，否则函数不能使用
+
+例如：日期是20080116必须要进行转换
+
+dayofweek(concat(concat(concat(substr(openDate,1,4),'-'),concat(substr(openDate,5,2),'-')),substr(openDate,7,2))) as week)
+
+这样格式正确的。
+
+19、concatt(参数1，连接值)       --把参数１加上连接值组成一个新值。
+
+　　例如：　concat('aa','b')    --返回是aab
+
+## DB2使用db2advis工具调优SQL
+
+常见用法
+
+**1. 指定单条SQL语句**
+$ db2advis -d dbname -q schemaname -s "select * from test" -o result.out
+
+说明：
+* -d 指定数据库名称
+* -s 指定单条SQL语句用于评估并给出索引建议，需要注意的是SQL语句需要由双引号包围
+* -o 指定建议输出至文件。
+ 
+**2. 用户提供工作负载文件，db2advis根据此文件给出建议**
+
+$ db2advis -d dbname -q schemaname -i input.sql -o result.out
+
+说明：
+* -i指定用于分析的工作负载文件。
+工作负载文件说明：
+定义SQL语句的执行频率：“–#SET FREQUENCY 100”
+定义注释：“–comment“
+
+部分参数的描述
+* -m：指定返回的建议类型，包括IMCP–I（索引）M（MQT物化视图）C（MDC多维聚簇表）P（repartition），默认是I即索引。
+* -q schema-name：即限定工作负载中未指定模式的查询对象的模式名。
+* -l disk-limit：限定所建议的索引或物化视图所占的磁盘空间，单位是M。-1表示较大size；默认是数据库总大小的20%
+* -delim char：指定工作负载文件中的语句结束符，默认为“；”
+* -b tablespace-name：指定建议创建的MQT所在表空间
+```
+
+
+
 
 
 ## 导入导出
 
 
 
-**1 Export 数据导出**
-语法：export to filename of filetype modified by filetype-mod messages message-file select-statement
+### **1 Export 数据导出**
+
+#### **语法：**
+
+```sh
+export to filename of filetype modified by filetype-mod messages message-file select-statement
+
+# 参数解释
 filetype:支持del|wsf|ixf等格式，del为ASCII字符隔离格式，wsf工作表格格式(不知道用什么打开)，ixf夸平台的二进制格式
 filetype-mod:文件类型模式(下面列举的只针对del格式，其中codepage可用于ixf格式)
-
-chardelx : 分隔符，默认为(")，这里指定x为分隔符
-
-codepage=x : 设置代码页，1208为UTF-8编码格式
-
-coldelx : 列分隔符，默认为(,)，这里指定为x
-
-nochardel: 列没有包裹字符，默认为("")
-
+	chardelx : 分隔符，默认为(")，这里指定x为分隔符
+	codepage=x : 设置代码页，1208为UTF-8编码格式
+	coldelx : 列分隔符，默认为(,)，这里指定为x
+	nochardel: 列没有包裹字符，默认为("")
 timestampformat="x" : 设置日期数据格式，YYYY/MM/DD HH:MM:SS.UUUUUU
 
+```
 
-**2 Import数据导入**
-格式：import from filename of filetype modified by filetype-mod allow no access|allow write access commitcount n|automatic restartcount n|skipcount rowcount n warningcount n notimeout message message-file insert|insert_update|replace|replace_create into table-name
+#### eg
+
+```sh
+db2 "export to aa.del of del modified by coldel0x0f codepage=1028 nochardel select * from aa"
+```
+
+
+
+### **2 Import数据导入**
+
+#### 语法
+
+```sh
+import from filename of filetype modified by filetype-mod allow no access|allow write access commitcount n|automatic restartcount n|skipcount rowcount n warningcount n notimeout message message-file insert|insert_update|replace|replace_create into table-name
+
+# 参数解释
 filetype:同export中的filetype
 filetype-mod:同export中的filetype
-访问权限:allow no acces默认，不允许访问，导入加X排它锁，脱机模式(目标表脱机)运行import。
-
-  allow write access 允许写，导入加IX锁，在线模式运行import，允许并发(concurrent)读写。
+访问权限:
+	allow no acces默认，不允许访问，导入加X排它锁，脱机模式(目标表脱机)运行import。
+	allow write access 允许写，导入加IX锁，在线模式运行import，允许并发(concurrent)读写。
 commitcount:提交行数，多少行记录做一次提交动作，使用该参数可以加快import的速度，automatic自动。
 restartcount:重启import从多少行记录开始 n+1
 skipcount:跳过的行数,n+1开始，与restartcount互斥
 warningcount:有多少警告之后停止import操作
 notimeout:开始import操作等待x锁时不会超时
 insert|insert_update|replace:
+	insert : 单纯插入数据
+	insert_update : 插入或更新数据，根据主键pk来判断
+	replace : 先删除存在的表数据(truncate方式，快速)再导入新数据，不改变表和索引的定义，前提是表必须存在。
+```
 
-insert : 单纯插入数据
+#### eg
 
-insert_update : 插入或更新数据，根据主键pk来判断
+```sh
+db2 "import from aa.del of del modified by coldel0x0f nochardel codepage=1028 commitcount 10000 insert into aa"
+```
 
-replace : 先删除存在的表数据(truncate方式，快速)再导入新数据，不改变表和索引的定义，前提是表必须存在。
 
 
-**3 Load 数据加载**
+
+
+### **3 Load 数据加载**
+
 语法：load client from filename of filetype modified by file-type-mode savecount n rowcount n warningcount n messages message-file insert|replace keepdictionary|resetdictionary|restart|terminate into table-name 
 copy no|copy yes to directory|nonrecoverable without prompting data buffer buffer-size allow no access|allow read access set integrity pending cascade immediate|deferred lock with force 
 client : 指定从远程客户端调用
@@ -108,25 +489,30 @@ DB2默认load优先级策略为：record delimiter, character delimiter, column 
 
 
 
+### 示例
 
+#### 1.新建表
 
-### 1.新建表
-
+```sh
 qinys@Linux:~> db2 "create table tb1(id int,dt timestamp,name varchar(100))";
 DB20000I The SQL command completed successfully.
+```
 
-### 2.插入数据
+#### 2.插入数据
 
+```sh
 qinys@Linux:~> db2 "insert into tb1 values(1,current timestamp,'Jack')";
 DB20000I The SQL command completed successfully.
 qinys@Linux:~> db2 "insert into tb1 values(2,current timestamp,'Numy')";
 DB20000I The SQL command completed successfully.
+```
 
-### 3.创建新表（为Import贮备）
+#### 3.创建新表（为Import贮备）
 
+```sh
 qinys@Linux:~> db2 "create table tb1_tmp like tb1";
 DB20000I The SQL command completed successfully.
-
+```
 
 
 DB2中的数据导入导出分别为：Import与Export

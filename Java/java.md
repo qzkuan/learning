@@ -141,7 +141,102 @@ W 表示离指定日期的最近那个工作日(周一至周五). 例如在日�
 
 
 
+## IO
 
+> I/O，即输入（Input）/ 输出（Output），IO流指的是数据像连绵的流体一样进行传输。
+
+###  IO流的分类
+
+按数据的**流向**分为：输入流和输出流
+
+按数据的**类型**分为：
+ 字节流：以字节为单位来操作数据。
+  InputStream: 字节输入流的顶层抽象类.
+   FileInputStream:普通的字节输入流.
+   BufferedInputStream: 高效的字节输入流(也叫: 字节缓冲输入流)
+  OutputStream:字节输出流的顶层抽象类.
+   FileOutputStream:普通的字节输出流.
+   BufferedOutputStream:高效的字节输出流(也叫: 字节缓冲输出流).
+ 字符流: 以字符为单位来操作数据
+  Reader: 字符输入流的顶层抽象类.
+   FileReader:普通的字符输入流.
+   BufferedReader:高效的字符输入流(也叫: 字符缓冲输入流)
+  Writer: 字符输出流的顶层抽象类.
+   FileWriter:普通的字符输出流.
+   BufferedWriter:高效的字符输出流(也叫: 字符缓冲输出流)
+
+```java
+package com.example.learn.io;
+
+import org.junit.Test;
+import java.io.*;
+
+/**
+ * @author qzkuan(qqaxxn @ 163.com)
+ * @className CopyFile
+ * @packageName com.example.learn.io
+ * @date 2021-02-25 20:07
+ * @description TODO
+ */
+public class CopyFile {
+    // 【注】字符流，只能操作文本文件，不能操作图片，视频等非文本文件。当我们单纯读或者写文本文件时使用字符流其他情况使用字节流
+
+    /**
+     * 字节缓冲
+     *
+     * @throws IOException
+     */
+    @Test
+    public void testStream() throws IOException {
+        //记录开始时间
+        long start = System.currentTimeMillis();
+        //创建字节缓冲流对象
+        BufferedInputStream bis = new BufferedInputStream(new FileInputStream("C:\\Users\\qzkuan\\Desktop\\vim.jpg"));
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("C:\\Users\\qzkuan\\Desktop\\vim_stream.jpg"));
+        int len;
+        byte[] bytes = new byte[2048];
+        while ((len = bis.read(bytes)) != -1) { //读数据
+            //写数据
+            bos.write(bytes, 0, len);
+        }
+        bis.close();
+        bos.close();
+        //记录结束时间
+        long end = System.currentTimeMillis();
+        System.out.println("缓冲流使用数组复制时间:" + (end - start) + " 毫秒");
+    }
+
+    /**
+     * 字符缓冲
+     * 特有方法BufferedReader：public String readLine()：读一行数据。 读取到最后返回null。
+     * 特有方法BufferedWriter：public void newLine(): 换行,由系统属性定义符号。
+     *
+     * @throws IOException
+     */
+    @Test
+    public void reader() throws IOException {
+        //记录开始时间
+        long start = System.currentTimeMillis();
+        //1.创建字符缓冲输入流读文件对象
+        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\qzkuan\\Desktop\\1.txt")); //读取png有问题。。
+        //1.创建字符缓冲输出流读文件对象
+        BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\qzkuan\\Desktop\\1_reader.txt"));
+        int len;
+        char[] chars = new char[1024];
+        while ((len = br.read(chars)) != -1) { //读数据
+            //写数据
+            bw.write(chars, 0, len);
+        }
+        br.close();
+        bw.close();
+        //记录结束时间
+        long end = System.currentTimeMillis();
+        System.out.println("缓冲流使用数组复制时间:" + (end - start) + " 毫秒");
+    }
+}
+
+
+```
 
 
 

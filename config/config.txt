@@ -1,4 +1,19 @@
 git config --global user.name "qzkuan"
 git config --global user.email "qzkuan@gmail.com"
 
+# 免密码push
+# 1. 走 SSH 协议，然后配 key。
 ssh-keygen  -t rsa -C "qzkuan@gmail.com" (双引号中的为github的注册邮箱）
+# 注意clone的时候选择ssh，如果选择http则配了公钥也会提示输入账号密码。。。
+
+# 2. 或者还是用 HTTP，配 credential helper
+git config credential.helper store
+# 但是此方法会在本地C:\Users\administrator\.git-credentials存储账号密码https://user:password@github.com
+# 如果想要清除该账号和密码，使用如下命令：
+git config --global credential.helper reset
+# 想要临时存储（默认15min），使用如下命令
+git config --global credential.helper cache
+# windows下的临时存储命令不是上面的，应该使用下面的命令
+git config --global credential.helper wincred
+# 查看多有配置列表
+git config --global --list
